@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AOPLearn.BaseClass
 {
@@ -7,6 +8,7 @@ namespace AOPLearn.BaseClass
     /// </summary>
     public interface IOrderService
     {
+        Guid Id { get; set; }
         /// <summary>
         /// 提交订单
         /// </summary>

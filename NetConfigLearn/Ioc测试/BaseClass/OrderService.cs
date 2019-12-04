@@ -5,6 +5,7 @@ namespace AOPLearn.BaseClass
 {
     public class OrderService : IOrderService
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
         public List<CourseOrder> GetAllOrders()
         {
             //在这里编写具体的查询业务...
