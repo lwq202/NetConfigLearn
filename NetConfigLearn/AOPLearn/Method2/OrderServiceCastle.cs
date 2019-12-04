@@ -23,6 +23,7 @@ namespace AOPLearn.Method2
 
         public virtual int SubmitOrder(CourseOrder order)
         {
+            //
             //在这里编写具体的查询业务...
 
             Console.WriteLine("--------------------------------《核心业务》课程订单被正确提交...");
