@@ -10,5 +10,4 @@ namespace Ioc测试
         }
     }
 
-    public class 
 }
