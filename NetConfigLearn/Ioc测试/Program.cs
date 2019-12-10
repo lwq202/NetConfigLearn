@@ -1,7 +1,8 @@
 ﻿using System;
-using AOPLearn.BaseClass;
 using Autofac;
 using Autofac.Builder;
+using Autofac.Extras.DynamicProxy;
+using Ioc测试.BaseClass;
 
 
 namespace Ioc测试
@@ -11,9 +12,8 @@ namespace Ioc测试
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-
-            IOrderService orderService = new OrderService();
-            DI();
+            //DI();
+            Aop();
             Console.ReadLine();
         }
 
@@ -24,19 +24,19 @@ namespace Ioc测试
         {
             Autofac.ContainerBuilder containerBuilder = new Autofac.ContainerBuilder();
             //单例模式
-            //containerBuilder.RegisterType<OrderService>()
-            //    .As<IOrderService>()
-            //    .SingleInstance();
+            containerBuilder.RegisterType<DaoImpl>()
+                .As<Dao>()
+                .SingleInstance();
 
-            // 一个生命周期一个实例
+            //一个生命周期一个实例
             //containerBuilder.RegisterType<OrderService>()
             //    .As<IOrderService>()
             //    .InstancePerLifetimeScope();
 
             //每一次被请求都是一个实例
-            containerBuilder.RegisterType<OrderService>()
-                .As<IOrderService>()
-                .InstancePerDependency();
+            //containerBuilder.RegisterType<OrderService>()
+            //    .As<IOrderService>()
+            //    .InstancePerDependency();
 
             var container = containerBuilder.Build();
             for (int j = 0; j < 2; j++)
@@ -45,19 +45,24 @@ namespace Ioc测试
                 {
                     for (int i = 0; i < 2; i++)
                     {
-                        var service = life.Resolve<IOrderService>();
+                        var service = life.Resolve<Dao>();
                         Console.WriteLine($"{service.Id}");
                     }
-
-
                 }
             }
            
         }
 
-        static void In()
+        static void Aop()
         {
-
+            Autofac.ContainerBuilder containerBuilder = new Autofac.ContainerBuilder();
+            containerBuilder.RegisterType<PrintTimeHandler>();
+            containerBuilder.RegisterType<DaoImpl>().As<Dao>().InterceptedBy(typeof(PrintTimeHandler)).EnableClassInterceptors();
+            var life= containerBuilder.Build().BeginLifetimeScope();
+            var dao= life.Resolve<Dao>();
+            dao.insert();
+            dao.update();
+            dao.delete();
         }
     }
 
