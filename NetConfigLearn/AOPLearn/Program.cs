@@ -70,11 +70,14 @@ namespace AOPLearn
             //建议Castle动态完成对象创建
             IOrderService orderService4 = generator.CreateClassProxy<OrderServiceCastle>(interceptor);
             var result = orderService4.SubmitOrder(order);
+            #region 其他
             //orderService4.GetAllOrders();
-            Console.WriteLine("订单提交返回结果：" + result);
+            //Console.WriteLine("订单提交返回结果：" + result);
 
-            Console.WriteLine("结束了------------------------------");
-            var list= orderService4.GetAllOrders();
+            // Console.WriteLine("结束了------------------------------");
+            //var list= orderService4.GetAllOrders();
+            #endregion
+
 
             Console.ReadLine();
         }
