@@ -25,6 +25,7 @@ namespace CoreWebFull
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<Dao, DaoImpl>();
+
             services.AddControllersWithViews();
         }
 
